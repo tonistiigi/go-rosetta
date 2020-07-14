@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: macos-10.15
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v1
+      
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Test builds
+        run: |
+          GOOS=darwin go build .
+          GOOS=linux go build .
