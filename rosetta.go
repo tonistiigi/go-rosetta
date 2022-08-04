@@ -1,11 +1,19 @@
+//go:build darwin
 // +build darwin
 
 package rosetta
 
 import (
+	"os"
 	"runtime"
 	"syscall"
 )
+
+// Available returns true if Rosetta is installed/available
+func Available() bool {
+	_, err := os.Stat("/Library/Apple/usr/share/rosetta")
+	return err == nil
+}
 
 // Enabled returns true if running in a Rosetta Translated Binary, false otherwise.
 func Enabled() bool {
